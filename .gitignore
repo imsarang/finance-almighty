@@ -1,2 +1,3 @@
 mcp-servers/.env
 mcp-servers/bin/
+mcp-servers/models/

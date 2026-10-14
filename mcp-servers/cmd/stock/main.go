@@ -19,8 +19,8 @@ import (
 	"github.com/imsarang/finance-almighty/mcp-servers/internal/tools"
 )
 
-func main(){
-	log:=slog.New(slog.NewTextHandler(os.Stderr, nil))
+func main() {
+	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
 	if err := run(context.Background()); err != nil {
 		log.Error("fatal", "err", err)
 		os.Exit(1)
@@ -30,18 +30,18 @@ func main(){
 func run(ctx context.Context) error {
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	
+
 	// load configs from env
-	cfg, err:=config.Load()
-	if err!=nil {
+	cfg, err := config.LoadStock()
+	if err != nil {
 		return err
 	}
 
 	// connect redis
-	rdb:= redis.NewClient(&redis.Options{Addr: cfg.RedisAddr, DB: cfg.RedisDB})
+	rdb := redis.NewClient(&redis.Options{Addr: cfg.RedisAddr, DB: cfg.RedisDB})
 	defer rdb.Close()
 
-	if err:=rdb.Ping(ctx).Err(); err != nil {
+	if err := rdb.Ping(ctx).Err(); err != nil {
 		slog.Error("redis could not be connected")
 		return err
 	}

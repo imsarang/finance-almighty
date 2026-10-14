@@ -1,9 +1,3 @@
 {
-  "mcpServers": {
-    "finance-stocks": {
-      "type": "stdio",
-      "command": "${workspaceFolder}/mcp-servers/bin/stock-mcp",
-      "envFile": "${workspaceFolder}/mcp-servers/.env"
-    }
-  }
+  "mcpServers": {}
 }
